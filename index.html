@@ -849,9 +849,9 @@
 
     <div class="container">
         <div class="tabs">
-            <button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
+            <button class="tab active" onclick="showTab('vista-planilla')">Vista Planilla</button>
+            <button class="tab" onclick="showTab('dashboard')">Dashboard</button>
             <button class="tab" onclick="showTab('flota')">Gestión de Flota</button>
-            <button class="tab" onclick="showTab('vista-planilla')">Vista Planilla</button>
             <button class="tab" onclick="showTab('alertas')">Alertas</button>
             <button class="tab" onclick="showTab('calendario')">Calendario</button>
             <button class="tab" onclick="showTab('reportes')">Reportes</button>
@@ -860,7 +860,7 @@
         </div>
 
         <!-- Dashboard Tab -->
-        <div id="dashboard" class="tab-content active">
+        <div id="dashboard" class="tab-content">
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Flota Total</h3>
@@ -1051,7 +1051,7 @@
             </div>
         </div>
 <!-- Vista Planilla Tab (Excel Style) -->
-<div id="vista-planilla" class="tab-content">
+<div id="vista-planilla" class="tab-content active">
     <div class="sheet-actions">
         <div>
             <h2 style="margin-bottom: 0.5rem;">Vista Planilla - Disponibilidad</h2>
