@@ -655,6 +655,180 @@
                 padding: 0.75rem 0.5rem;
             }
         }
+       /* Excel-style Sheet View - MEJORADO */
+.sheet-view {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow: auto;
+}
+
+.sheet-container {
+    overflow-x: auto;
+}
+
+.sheet-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.sheet-main-header {
+    background: var(--secondary);
+    color: var(--primary);
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: 1px solid var(--gray-300);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.sheet-table th {
+    background: var(--gray-100);
+    padding: 0.4rem 0.3rem;
+    border: 1px solid var(--gray-300);
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    position: sticky;
+    top: 42px;
+    z-index: 15;
+}
+
+.sheet-table td {
+    padding: 0.3rem 0.4rem;
+    border: 1px solid var(--gray-300);
+    font-size: 0.75rem;
+    height: 32px;
+}
+
+.vehicle-detail-col {
+    background: var(--gray-50);
+    font-weight: 500;
+    min-width: 90px;
+    max-width: 120px;
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    border-right: 2px solid var(--gray-400);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vehicle-detail-col:nth-child(1) { left: 0; z-index: 12; min-width: 60px; }
+.vehicle-detail-col:nth-child(2) { left: 60px; z-index: 12; min-width: 100px; }
+.vehicle-detail-col:nth-child(3) { left: 160px; z-index: 12; min-width: 150px; }
+.vehicle-detail-col:nth-child(4) { left: 310px; z-index: 12; min-width: 100px; }
+.vehicle-detail-col:nth-child(5) { left: 410px; z-index: 12; min-width: 80px; }
+.vehicle-detail-col:nth-child(6) { left: 490px; z-index: 12; min-width: 90px; }
+
+.date-header-compact {
+    min-width: 32px;
+    max-width: 32px;
+    text-align: center;
+    padding: 0.3rem 0.2rem;
+    font-size: 0.65rem;
+    line-height: 1.2;
+}
+
+.date-cell-compact {
+    min-width: 32px;
+    max-width: 32px;
+    text-align: center;
+    padding: 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.date-cell-compact:hover {
+    opacity: 0.8;
+}
+
+.sheet-cell-rented {
+    background: #10b981 !important;
+}
+
+.sheet-cell-reserved {
+    background: #3b82f6 !important;
+}
+
+.sheet-cell-available {
+    background: white;
+}
+
+.sheet-cell-holiday {
+    background: #fef3c7 !important;
+    position: relative;
+}
+
+.sheet-cell-holiday::after {
+    content: '🎉';
+    font-size: 0.7rem;
+}
+
+.sheet-legend {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-top: 2px solid var(--gray-200);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sheet-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.sheet-legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--gray-300);
+}
+
+.fleet-category-header {
+    background: #064e3b;
+    color: white;
+    padding: 0.5rem;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid var(--gray-300);
+    font-size: 0.8rem;
+}
+
+.sheet-actions {
+    padding: 1rem;
+    background: var(--gray-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.status-mini {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.category-row {
+    background: var(--gray-100);
+}
+
+.vehicle-row:hover {
+    background: var(--gray-50);
+}
     </style>
 </head>
 <body>
@@ -677,6 +851,7 @@
         <div class="tabs">
             <button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
             <button class="tab" onclick="showTab('flota')">Gestión de Flota</button>
+            <button class="tab" onclick="showTab('vista-planilla')">Vista Planilla</button>
             <button class="tab" onclick="showTab('alertas')">Alertas</button>
             <button class="tab" onclick="showTab('calendario')">Calendario</button>
             <button class="tab" onclick="showTab('reportes')">Reportes</button>
@@ -875,7 +1050,437 @@
                 </table>
             </div>
         </div>
+<!-- Vista Planilla Tab (Excel Style) -->
+<div id="vista-planilla" class="tab-content">
+    <div class="sheet-actions">
+        <div>
+            <h2 style="margin-bottom: 0.5rem;">Vista Planilla - Disponibilidad</h2>
+            <p style="color: var(--gray-700); font-size: 0.9rem;">Vista completa con calendario horizontal</p>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <label style="font-size: 0.9rem; font-weight: 600;">Mes:</label>
+                <select id="monthSelector" class="filter-select" onchange="updateCalendar()" style="width: 150px;">
+                    <option value="2025-11">Noviembre 2025</option>
+                    <option value="2025-12">Diciembre 2025</option>
+                    <option value="2026-01">Enero 2026</option>
+                    <option value="2026-02">Febrero 2026</option>
+                </select>
+            </div>
+            <button class="btn btn-secondary" onclick="alert('Exportando a Excel...')">Exportar a Excel</button>
+            <button class="btn btn-primary" onclick="alert('Imprimiendo...')">Imprimir</button>
+        </div>
+    </div>
 
+    <!-- Filtros de búsqueda -->
+    <div style="padding: 1rem; background: white; border-bottom: 1px solid var(--gray-200); display: flex; gap: 1rem;">
+        <input type="text" class="search-input" placeholder="Buscar patente..." id="sheetSearchPatent" onkeyup="filterSheetTable()" style="flex: 1; max-width: 200px;">
+        <input type="text" class="search-input" placeholder="Buscar modelo..." id="sheetSearchModel" onkeyup="filterSheetTable()" style="flex: 1; max-width: 200px;">
+        <select class="filter-select" id="sheetCategoryFilter" onchange="filterSheetTable()">
+            <option value="">Todas las categorías</option>
+            <option value="C">Categoría C</option>
+            <option value="H">Categoría H</option>
+            <option value="K">Categoría K</option>
+        </select>
+        <select class="filter-select" id="sheetStatusFilter" onchange="filterSheetTable()">
+            <option value="">Todos los estados</option>
+            <option value="disponible">Disponible</option>
+            <option value="reservado">Reservado</option>
+            <option value="alquilado">Alquilado</option>
+        </select>
+    </div>
+
+    <div class="sheet-view">
+        <div class="sheet-container">
+            <table class="sheet-table" id="sheetTable">
+                <thead>
+                    <tr>
+                        <th colspan="6" class="sheet-main-header">VEHÍCULOS</th>
+                        <th colspan="30" class="sheet-main-header">NOVIEMBRE 2025</th>
+                    </tr>
+                    <tr>
+                        <th class="vehicle-detail-col">Categoría</th>
+                        <th class="vehicle-detail-col">Patente</th>
+                        <th class="vehicle-detail-col">Modelo</th>
+                        <th class="vehicle-detail-col">Cliente</th>
+                        <th class="vehicle-detail-col">Contrato</th>
+                        <th class="vehicle-detail-col">Estado</th>
+                        <!-- Días del mes -->
+                        <th class="date-header-compact">Vie<br>1</th>
+                        <th class="date-header-compact">Sáb<br>2</th>
+                        <th class="date-header-compact">Dom<br>3</th>
+                        <th class="date-header-compact">Lun<br>4</th>
+                        <th class="date-header-compact">Mar<br>5</th>
+                        <th class="date-header-compact">Mié<br>6</th>
+                        <th class="date-header-compact">Jue<br>7</th>
+                        <th class="date-header-compact">Vie<br>8</th>
+                        <th class="date-header-compact">Sáb<br>9</th>
+                        <th class="date-header-compact">Dom<br>10</th>
+                        <th class="date-header-compact">Lun<br>11</th>
+                        <th class="date-header-compact">Mar<br>12</th>
+                        <th class="date-header-compact">Mié<br>13</th>
+                        <th class="date-header-compact">Jue<br>14</th>
+                        <th class="date-header-compact">Vie<br>15</th>
+                        <th class="date-header-compact">Sáb<br>16</th>
+                        <th class="date-header-compact">Dom<br>17</th>
+                        <th class="date-header-compact">Lun<br>18</th>
+                        <th class="date-header-compact">Mar<br>19</th>
+                        <th class="date-header-compact">Mié<br>20</th>
+                        <th class="date-header-compact">Jue<br>21</th>
+                        <th class="date-header-compact">Vie<br>22</th>
+                        <th class="date-header-compact">Sáb<br>23</th>
+                        <th class="date-header-compact">Dom<br>24</th>
+                        <th class="date-header-compact">Lun<br>25</th>
+                        <th class="date-header-compact">Mar<br>26</th>
+                        <th class="date-header-compact">Mié<br>27</th>
+                        <th class="date-header-compact">Jue<br>28</th>
+                        <th class="date-header-compact">Vie<br>29</th>
+                        <th class="date-header-compact">Sáb<br>30</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Categoría C -->
+                    <tr class="category-row">
+                        <td colspan="36" class="fleet-category-header">CATEGORÍA C - KWID</td>
+                    </tr>
+                    <tr class="vehicle-row" data-category="C" data-status="alquilado">
+                        <td class="vehicle-detail-col"><span class="category-badge">C</span></td>
+                        <td class="vehicle-detail-col"><strong>C-AH-919-BK</strong></td>
+                        <td class="vehicle-detail-col">KWID 1.0 ICONIC OUTSIDER</td>
+                        <td class="vehicle-detail-col">Cliente A</td>
+                        <td class="vehicle-detail-col">#1509661</td>
+                        <td class="vehicle-detail-col"><span class="status-mini status-alquilado">Alquilado</span></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                    </tr>
+                    <tr class="vehicle-row" data-category="C" data-status="alquilado">
+                        <td class="vehicle-detail-col"><span class="category-badge">C</span></td>
+                        <td class="vehicle-detail-col"><strong>C-AH-919-BH</strong></td>
+                        <td class="vehicle-detail-col">KWID 1.0 ICONIC OUTSIDER</td>
+                        <td class="vehicle-detail-col">-</td>
+                        <td class="vehicle-detail-col">#06856</td>
+                        <td class="vehicle-detail-col"><span class="status-mini status-alquilado">Alquilado</span></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                    </tr>
+                    <tr class="vehicle-row" data-category="C" data-status="reservado">
+                        <td class="vehicle-detail-col"><span class="category-badge">C</span></td>
+                        <td class="vehicle-detail-col"><strong>C-AH-916-WL</strong></td>
+                        <td class="vehicle-detail-col">KWID 1.0 ICONIC OUTSIDER</td>
+                        <td class="vehicle-detail-col">Prepago</td>
+                        <td class="vehicle-detail-col">#1514206</td>
+                        <td class="vehicle-detail-col"><span class="status-mini status-reservado">Reservado</span></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-holiday" title="Feriado"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                    </tr>
+                    <tr class="vehicle-row" data-category="C" data-status="disponible">
+                        <td class="vehicle-detail-col"><span class="category-badge">C</span></td>
+                        <td class="vehicle-detail-col"><strong>C-AH-526-UT</strong></td>
+                        <td class="vehicle-detail-col">KWID 1.0 ICONIC OUTSIDER</td>
+                        <td class="vehicle-detail-col">-</td>
+                        <td class="vehicle-detail-col">-</td>
+                        <td class="vehicle-detail-col"><span class="status-mini status-disponible">Disponible</span></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-holiday" title="Feriado"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                    </tr>
+
+                    <!-- Categoría H -->
+                    <tr class="category-row">
+                        <td colspan="36" class="fleet-category-header">CATEGORÍA H - SANDERO / ARGO</td>
+                    </tr>
+                    <tr class="vehicle-row" data-category="H" data-status="reservado">
+                        <td class="vehicle-detail-col"><span class="category-badge">H</span></td>
+                        <td class="vehicle-detail-col"><strong>H-AH-534-CO</strong></td>
+                        <td class="vehicle-detail-col">SANDERO MANUAL</td>
+                        <td class="vehicle-detail-col">Prepago XYZ</td>
+                        <td class="vehicle-detail-col">-</td>
+                        <td class="vehicle-detail-col"><span class="status-mini status-reservado">Reservado</span></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                    </tr>
+                    <tr class="vehicle-row" data-category="H" data-status="alquilado">
+                        <td class="vehicle-detail-col"><span class="category-badge">H</span></td>
+                        <td class="vehicle-detail-col"><strong>H-AH-287-WG</strong></td>
+                        <td class="vehicle-detail-col">ARGO DRIVE 1.3 MANUAL</td>
+                        <td class="vehicle-detail-col">SIHORSKI</td>
+                        <td class="vehicle-detail-col">#1504157</td>
+                        <td class="vehicle-detail-col"><span class="status-mini status-alquilado">Alquilado</span></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-rented"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-holiday" title="Feriado"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                    </tr>
+                    <tr class="vehicle-row" data-category="H" data-status="disponible">
+                        <td class="vehicle-detail-col"><span class="category-badge">H</span></td>
+                        <td class="vehicle-detail-col"><strong>H-AH-449-HZ</strong></td>
+                        <td class="vehicle-detail-col">ARGO DRIVE 1.3 MANUAL</td>
+                        <td class="vehicle-detail-col">-</td>
+                        <td class="vehicle-detail-col">-</td>
+                        <td class="vehicle-detail-col"><span class="status-mini status-disponible">Disponible</span></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-holiday" title="Feriado"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                    </tr>
+
+                    <!-- Categoría K -->
+                    <tr class="category-row">
+                        <td colspan="36" class="fleet-category-header">CATEGORÍA K - PRECISION CVT</td>
+                    </tr>
+                    <tr class="vehicle-row" data-category="K" data-status="reservado">
+                        <td class="vehicle-detail-col"><span class="category-badge">K</span></td>
+                        <td class="vehicle-detail-col"><strong>K-AH-080-IM</strong></td>
+                        <td class="vehicle-detail-col">PRECISION CVT</td>
+                        <td class="vehicle-detail-col">Prepago</td>
+                        <td class="vehicle-detail-col">#1628844</td>
+                        <td class="vehicle-detail-col"><span class="status-mini status-reservado">Reservado</span></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-available"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                        <td class="date-cell-compact sheet-cell-reserved"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="sheet-legend">
+            <div class="sheet-legend-item">
+                <div class="sheet-legend-color" style="background: #10b981;"></div>
+                <span>Alquilado</span>
+            </div>
+            <div class="sheet-legend-item">
+                <div class="sheet-legend-color" style="background: #3b82f6;"></div>
+                <span>Reservado</span>
+            </div>
+            <div class="sheet-legend-item">
+                <div class="sheet-legend-color" style="background: white;"></div>
+                <span>Disponible</span>
+            </div>
+            <div class="sheet-legend-item">
+                <div class="sheet-legend-color" style="background: #fef3c7;"></div>
+                <span>Feriado</span>
+            </div>
+        </div>
+    </div>
+</div>
         <!-- Alertas Tab -->
         <div id="alertas" class="tab-content">
             <div class="actions-bar">
@@ -1570,6 +2175,39 @@
                 event.target.classList.remove('active');
             }
         }
+        // Sheet Table Filtering
+function filterSheetTable() {
+    const searchPatent = document.getElementById('sheetSearchPatent').value.toLowerCase();
+    const searchModel = document.getElementById('sheetSearchModel').value.toLowerCase();
+    const categoryFilter = document.getElementById('sheetCategoryFilter').value;
+    const statusFilter = document.getElementById('sheetStatusFilter').value;
+    
+    const rows = document.querySelectorAll('.vehicle-row');
+    
+    rows.forEach(row => {
+        const patent = row.querySelector('.vehicle-detail-col:nth-child(2)').textContent.toLowerCase();
+        const model = row.querySelector('.vehicle-detail-col:nth-child(3)').textContent.toLowerCase();
+        const category = row.getAttribute('data-category');
+        const status = row.getAttribute('data-status');
+        
+        const matchesPatent = patent.includes(searchPatent);
+        const matchesModel = model.includes(searchModel);
+        const matchesCategory = !categoryFilter || category === categoryFilter;
+        const matchesStatus = !statusFilter || status === statusFilter;
+        
+        if (matchesPatent && matchesModel && matchesCategory && matchesStatus) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+// Update Calendar (placeholder for future month navigation)
+function updateCalendar() {
+    const month = document.getElementById('monthSelector').value;
+    alert(`Cambiando al mes: ${month}\n\nEsta funcionalidad generaría dinámicamente el calendario para el mes seleccionado.`);
+}
     </script>
 </body>
 </html>
