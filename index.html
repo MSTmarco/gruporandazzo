@@ -829,6 +829,238 @@
 .vehicle-row:hover {
     background: var(--gray-50);
 }
+/* Vista por Horas y Días - ALINEACIÓN PERFECTA */
+.hour-view-container {
+    overflow-x: auto;
+    background: white;
+}
+
+.hour-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    min-width: 1400px;
+}
+
+.hour-header-vehicles {
+    border-right: 2px solid var(--gray-400);
+    background: var(--gray-50);
+}
+
+.hour-header-cell {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--gray-300);
+    font-size: 0.85rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--gray-100);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hour-category-label {
+    background: #064e3b;
+    color: white;
+    padding: 0.5rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-300);
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hour-vehicle-cell {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--gray-300);
+    font-size: 0.8rem;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hour-timeline-container {
+    position: relative;
+}
+
+.hour-timeline-header {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    background: white;
+    border-bottom: 2px solid var(--gray-400);
+}
+
+/* Header con grid de horas - CORREGIDO */
+.hour-header-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 50px;
+}
+
+.hour-date-group {
+    border-right: 1px solid var(--gray-300);
+    display: flex;
+    flex-direction: column;
+}
+
+.hour-date-label {
+    background: var(--gray-100);
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--gray-300);
+    flex: 1;
+}
+
+.hour-slots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.hour-slot {
+    padding: 0.4rem 0.2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-right: 1px solid var(--gray-200);
+    background: var(--gray-50);
+}
+
+.hour-slot:last-child {
+    border-right: none;
+}
+
+/* Header para vista por día - CORREGIDO */
+.hour-timeline-header:not(.hour-header-grid) {
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    height: 50px;
+}
+
+.day-date-cell {
+    padding: 0.5rem 0.25rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    background: var(--gray-100);
+    border-right: 1px solid var(--gray-300);
+    border-bottom: 2px solid var(--gray-400);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hour-timeline-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.hour-category-spacer {
+    height: 31px;
+    background: #064e3b;
+    border-bottom: 1px solid var(--gray-300);
+    width: 100%;
+}
+
+.hour-vehicle-row {
+    height: 50px;
+    position: relative;
+    border-bottom: 1px solid var(--gray-300);
+    width: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent 0%,
+            transparent calc(25% - 1px),
+            var(--gray-200) calc(25% - 1px),
+            var(--gray-200) 25%
+        );
+}
+
+.reservation-bar {
+    position: absolute;
+    height: 36px;
+    top: 7px;
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    display: flex;
+    align-items: center;
+    cursor: move;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+    z-index: 5;
+}
+
+.reservation-bar:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+    z-index: 10;
+}
+
+.reservation-bar.draggable {
+    cursor: grab;
+}
+
+.reservation-bar.draggable:active {
+    cursor: grabbing;
+}
+
+.reservation-bar.rented {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: 2px solid #065f46;
+}
+
+.reservation-bar.reserved {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: 2px solid #1e40af;
+}
+
+.reservation-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.reservation-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.detail-item label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    text-transform: uppercase;
+}
+
+.detail-value {
+    font-size: 1rem;
+    padding: 0.75rem;
+    background: var(--gray-50);
+    border-radius: 6px;
+    border: 1px solid var(--gray-200);
+}
     </style>
 </head>
 <body>
@@ -1050,18 +1282,25 @@
                 </table>
             </div>
         </div>
-<!-- Vista Planilla Tab (Excel Style) -->
+<!-- Vista Planilla Tab (Excel Style con Horas) -->
 <div id="vista-planilla" class="tab-content active">
     <div class="sheet-actions">
         <div>
             <h2 style="margin-bottom: 0.5rem;">Vista Planilla - Disponibilidad</h2>
-            <p style="color: var(--gray-700); font-size: 0.9rem;">Vista completa con calendario horizontal</p>
+            <p style="color: var(--gray-700); font-size: 0.9rem;">Vista completa con calendario por horas</p>
         </div>
-        <div style="display: flex; gap: 1rem; align-items: center;">
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <label style="font-size: 0.9rem; font-weight: 600;">Vista:</label>
+                <select id="viewMode" class="filter-select" onchange="toggleViewMode()" style="width: 120px;">
+                    <option value="day">Por Día</option>
+                    <option value="hour" selected>Por Hora</option>
+                </select>
+            </div>
             <div style="display: flex; gap: 0.5rem; align-items: center;">
                 <label style="font-size: 0.9rem; font-weight: 600;">Mes:</label>
                 <select id="monthSelector" class="filter-select" onchange="updateCalendar()" style="width: 150px;">
-                    <option value="2025-11">Noviembre 2025</option>
+                    <option value="2025-11" selected>Noviembre 2025</option>
                     <option value="2025-12">Diciembre 2025</option>
                     <option value="2026-01">Enero 2026</option>
                     <option value="2026-02">Febrero 2026</option>
@@ -1073,7 +1312,7 @@
     </div>
 
     <!-- Filtros de búsqueda -->
-    <div style="padding: 1rem; background: white; border-bottom: 1px solid var(--gray-200); display: flex; gap: 1rem;">
+    <div style="padding: 1rem; background: white; border-bottom: 1px solid var(--gray-200); display: flex; gap: 1rem; flex-wrap: wrap;">
         <input type="text" class="search-input" placeholder="Buscar patente..." id="sheetSearchPatent" onkeyup="filterSheetTable()" style="flex: 1; max-width: 200px;">
         <input type="text" class="search-input" placeholder="Buscar modelo..." id="sheetSearchModel" onkeyup="filterSheetTable()" style="flex: 1; max-width: 200px;">
         <select class="filter-select" id="sheetCategoryFilter" onchange="filterSheetTable()">
@@ -1090,488 +1329,466 @@
         </select>
     </div>
 
-    <div class="sheet-view">
-        <div class="sheet-container">
-            <table class="sheet-table" id="sheetTable">
-                <thead>
-                    <tr>
-                        <th colspan="6" class="sheet-main-header">VEHÍCULOS</th>
-                        <th colspan="30" class="sheet-main-header">NOVIEMBRE 2025</th>
-                    </tr>
-                    <tr>
-                        <th class="vehicle-detail-col">Categoría</th>
-                        <th class="vehicle-detail-col">Patente</th>
-                        <th class="vehicle-detail-col">Modelo</th>
-                        <th class="vehicle-detail-col">Cliente</th>
-                        <th class="vehicle-detail-col">Contrato</th>
-                        <th class="vehicle-detail-col">Estado</th>
-                        <!-- Días del mes -->
-                        <th class="date-header-compact">Vie<br>1</th>
-                        <th class="date-header-compact">Sáb<br>2</th>
-                        <th class="date-header-compact">Dom<br>3</th>
-                        <th class="date-header-compact">Lun<br>4</th>
-                        <th class="date-header-compact">Mar<br>5</th>
-                        <th class="date-header-compact">Mié<br>6</th>
-                        <th class="date-header-compact">Jue<br>7</th>
-                        <th class="date-header-compact">Vie<br>8</th>
-                        <th class="date-header-compact">Sáb<br>9</th>
-                        <th class="date-header-compact">Dom<br>10</th>
-                        <th class="date-header-compact">Lun<br>11</th>
-                        <th class="date-header-compact">Mar<br>12</th>
-                        <th class="date-header-compact">Mié<br>13</th>
-                        <th class="date-header-compact">Jue<br>14</th>
-                        <th class="date-header-compact">Vie<br>15</th>
-                        <th class="date-header-compact">Sáb<br>16</th>
-                        <th class="date-header-compact">Dom<br>17</th>
-                        <th class="date-header-compact">Lun<br>18</th>
-                        <th class="date-header-compact">Mar<br>19</th>
-                        <th class="date-header-compact">Mié<br>20</th>
-                        <th class="date-header-compact">Jue<br>21</th>
-                        <th class="date-header-compact">Vie<br>22</th>
-                        <th class="date-header-compact">Sáb<br>23</th>
-                        <th class="date-header-compact">Dom<br>24</th>
-                        <th class="date-header-compact">Lun<br>25</th>
-                        <th class="date-header-compact">Mar<br>26</th>
-                        <th class="date-header-compact">Mié<br>27</th>
-                        <th class="date-header-compact">Jue<br>28</th>
-                        <th class="date-header-compact">Vie<br>29</th>
-                        <th class="date-header-compact">Sáb<br>30</th>
-                    </tr>
-                </thead>
-                <tbody>
+    <!-- Vista por DÍA -->
+    <div id="dayView" class="sheet-view" style="display: none;">
+        <div class="hour-view-container">
+            <div class="hour-grid">
+                <!-- Header con vehículos -->
+                <div class="hour-header-vehicles">
+                    <div class="hour-header-cell" style="font-weight: 700; background: var(--primary); color: white;">Vehículo</div>
+                    
                     <!-- Categoría C -->
-                    <tr class="category-row">
-                        <td colspan="36" class="fleet-category-header">CATEGORÍA C - KWID</td>
-                    </tr>
-                    <tr class="vehicle-row" data-category="C" data-status="alquilado">
-                        <td class="vehicle-detail-col"><span class="category-badge">C</span></td>
-                        <td class="vehicle-detail-col"><strong>C-AH-919-BK</strong></td>
-                        <td class="vehicle-detail-col">KWID 1.0 ICONIC OUTSIDER</td>
-                        <td class="vehicle-detail-col">Cliente A</td>
-                        <td class="vehicle-detail-col">#1509661</td>
-                        <td class="vehicle-detail-col"><span class="status-mini status-alquilado">Alquilado</span></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                    </tr>
-                    <tr class="vehicle-row" data-category="C" data-status="alquilado">
-                        <td class="vehicle-detail-col"><span class="category-badge">C</span></td>
-                        <td class="vehicle-detail-col"><strong>C-AH-919-BH</strong></td>
-                        <td class="vehicle-detail-col">KWID 1.0 ICONIC OUTSIDER</td>
-                        <td class="vehicle-detail-col">-</td>
-                        <td class="vehicle-detail-col">#06856</td>
-                        <td class="vehicle-detail-col"><span class="status-mini status-alquilado">Alquilado</span></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                    </tr>
-                    <tr class="vehicle-row" data-category="C" data-status="reservado">
-                        <td class="vehicle-detail-col"><span class="category-badge">C</span></td>
-                        <td class="vehicle-detail-col"><strong>C-AH-916-WL</strong></td>
-                        <td class="vehicle-detail-col">KWID 1.0 ICONIC OUTSIDER</td>
-                        <td class="vehicle-detail-col">Prepago</td>
-                        <td class="vehicle-detail-col">#1514206</td>
-                        <td class="vehicle-detail-col"><span class="status-mini status-reservado">Reservado</span></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-holiday" title="Feriado"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                    </tr>
-                    <tr class="vehicle-row" data-category="C" data-status="disponible">
-                        <td class="vehicle-detail-col"><span class="category-badge">C</span></td>
-                        <td class="vehicle-detail-col"><strong>C-AH-526-UT</strong></td>
-                        <td class="vehicle-detail-col">KWID 1.0 ICONIC OUTSIDER</td>
-                        <td class="vehicle-detail-col">-</td>
-                        <td class="vehicle-detail-col">-</td>
-                        <td class="vehicle-detail-col"><span class="status-mini status-disponible">Disponible</span></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-holiday" title="Feriado"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                    </tr>
-
+                    <div class="hour-category-label">CATEGORÍA C</div>
+                    <div class="hour-vehicle-cell" data-vehicle="C-AH-919-BK">
+                        <div><strong>C-AH-919-BK</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">KWID 1.0 ICONIC</div>
+                    </div>
+                    <div class="hour-vehicle-cell" data-vehicle="C-AH-919-BH">
+                        <div><strong>C-AH-919-BH</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">KWID 1.0 ICONIC</div>
+                    </div>
+                    <div class="hour-vehicle-cell" data-vehicle="C-AH-916-WL">
+                        <div><strong>C-AH-916-WL</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">KWID 1.0 ICONIC</div>
+                    </div>
+                    
                     <!-- Categoría H -->
-                    <tr class="category-row">
-                        <td colspan="36" class="fleet-category-header">CATEGORÍA H - SANDERO / ARGO</td>
-                    </tr>
-                    <tr class="vehicle-row" data-category="H" data-status="reservado">
-                        <td class="vehicle-detail-col"><span class="category-badge">H</span></td>
-                        <td class="vehicle-detail-col"><strong>H-AH-534-CO</strong></td>
-                        <td class="vehicle-detail-col">SANDERO MANUAL</td>
-                        <td class="vehicle-detail-col">Prepago XYZ</td>
-                        <td class="vehicle-detail-col">-</td>
-                        <td class="vehicle-detail-col"><span class="status-mini status-reservado">Reservado</span></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                    </tr>
-                    <tr class="vehicle-row" data-category="H" data-status="alquilado">
-                        <td class="vehicle-detail-col"><span class="category-badge">H</span></td>
-                        <td class="vehicle-detail-col"><strong>H-AH-287-WG</strong></td>
-                        <td class="vehicle-detail-col">ARGO DRIVE 1.3 MANUAL</td>
-                        <td class="vehicle-detail-col">SIHORSKI</td>
-                        <td class="vehicle-detail-col">#1504157</td>
-                        <td class="vehicle-detail-col"><span class="status-mini status-alquilado">Alquilado</span></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-rented"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-holiday" title="Feriado"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                    </tr>
-                    <tr class="vehicle-row" data-category="H" data-status="disponible">
-                        <td class="vehicle-detail-col"><span class="category-badge">H</span></td>
-                        <td class="vehicle-detail-col"><strong>H-AH-449-HZ</strong></td>
-                        <td class="vehicle-detail-col">ARGO DRIVE 1.3 MANUAL</td>
-                        <td class="vehicle-detail-col">-</td>
-                        <td class="vehicle-detail-col">-</td>
-                        <td class="vehicle-detail-col"><span class="status-mini status-disponible">Disponible</span></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-holiday" title="Feriado"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                    </tr>
-
+                    <div class="hour-category-label">CATEGORÍA H</div>
+                    <div class="hour-vehicle-cell" data-vehicle="H-AH-534-CO">
+                        <div><strong>H-AH-534-CO</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">SANDERO MANUAL</div>
+                    </div>
+                    <div class="hour-vehicle-cell" data-vehicle="H-AH-287-WG">
+                        <div><strong>H-AH-287-WG</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">ARGO DRIVE 1.3</div>
+                    </div>
+                    
                     <!-- Categoría K -->
-                    <tr class="category-row">
-                        <td colspan="36" class="fleet-category-header">CATEGORÍA K - PRECISION CVT</td>
-                    </tr>
-                    <tr class="vehicle-row" data-category="K" data-status="reservado">
-                        <td class="vehicle-detail-col"><span class="category-badge">K</span></td>
-                        <td class="vehicle-detail-col"><strong>K-AH-080-IM</strong></td>
-                        <td class="vehicle-detail-col">PRECISION CVT</td>
-                        <td class="vehicle-detail-col">Prepago</td>
-                        <td class="vehicle-detail-col">#1628844</td>
-                        <td class="vehicle-detail-col"><span class="status-mini status-reservado">Reservado</span></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-available"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                        <td class="date-cell-compact sheet-cell-reserved"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                    <div class="hour-category-label">CATEGORÍA K</div>
+                    <div class="hour-vehicle-cell" data-vehicle="K-AH-080-IM">
+                        <div><strong>K-AH-080-IM</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">PRECISION CVT</div>
+                    </div>
+                </div>
 
-        <div class="sheet-legend">
-            <div class="sheet-legend-item">
-                <div class="sheet-legend-color" style="background: #10b981;"></div>
-                <span>Alquilado</span>
-            </div>
-            <div class="sheet-legend-item">
-                <div class="sheet-legend-color" style="background: #3b82f6;"></div>
-                <span>Reservado</span>
-            </div>
-            <div class="sheet-legend-item">
-                <div class="sheet-legend-color" style="background: white;"></div>
-                <span>Disponible</span>
-            </div>
-            <div class="sheet-legend-item">
-                <div class="sheet-legend-color" style="background: #fef3c7;"></div>
-                <span>Feriado</span>
+                <!-- Timeline con DÍAS -->
+                <div class="hour-timeline-container">
+                    <!-- Header de fechas -->
+                    <div class="hour-timeline-header">
+                        <div class="day-date-cell">Vie 1/11</div>
+                        <div class="day-date-cell">Sáb 2/11</div>
+                        <div class="day-date-cell">Dom 3/11</div>
+                        <div class="day-date-cell">Lun 4/11</div>
+                        <div class="day-date-cell">Mar 5/11</div>
+                        <div class="day-date-cell">Mié 6/11</div>
+                        <div class="day-date-cell">Jue 7/11</div>
+                        <div class="day-date-cell">Vie 8/11</div>
+                        <div class="day-date-cell">Sáb 9/11</div>
+                        <div class="day-date-cell">Dom 10/11</div>
+                        <div class="day-date-cell">Lun 11/11</div>
+                        <div class="day-date-cell">Mar 12/11</div>
+                        <div class="day-date-cell">Mié 13/11</div>
+                        <div class="day-date-cell">Jue 14/11</div>
+                        <div class="day-date-cell">Vie 15/11</div>
+                        <div class="day-date-cell">Sáb 16/11</div>
+                        <div class="day-date-cell">Dom 17/11</div>
+                        <div class="day-date-cell">Lun 18/11</div>
+                        <div class="day-date-cell">Mar 19/11</div>
+                        <div class="day-date-cell">Mié 20/11</div>
+                        <div class="day-date-cell">Jue 21/11</div>
+                        <div class="day-date-cell">Vie 22/11</div>
+                        <div class="day-date-cell">Sáb 23/11</div>
+                        <div class="day-date-cell">Dom 24/11</div>
+                        <div class="day-date-cell">Lun 25/11</div>
+                        <div class="day-date-cell">Mar 26/11</div>
+                        <div class="day-date-cell">Mié 27/11</div>
+                        <div class="day-date-cell">Jue 28/11</div>
+                        <div class="day-date-cell">Vie 29/11</div>
+                        <div class="day-date-cell">Sáb 30/11</div>
+                    </div>
+
+                    <!-- Reservas por vehículo - Vista DÍA -->
+                    <div class="hour-timeline-body">
+                        <!-- Categoría C -->
+                        <div class="hour-category-spacer"></div>
+                        
+                        <!-- C-AH-919-BK - Todo el mes alquilado -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar rented draggable" 
+                                 style="left: 0%; width: 100%;" 
+                                 data-vehicle="C-AH-919-BK"
+                                 data-client="Cliente A"
+                                 data-contract="#1509661"
+                                 data-start="01/11/2025"
+                                 data-end="30/11/2025"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">Cliente A - #1509661</div>
+                            </div>
+                        </div>
+
+                        <!-- C-AH-919-BH - Del 5 al 18 -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar rented draggable" 
+                                 style="left: 13.33%; width: 46.67%;" 
+                                 data-vehicle="C-AH-919-BH"
+                                 data-client="Prepago"
+                                 data-contract="#06856"
+                                 data-start="05/11/2025"
+                                 data-end="18/11/2025"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">#06856</div>
+                            </div>
+                        </div>
+
+                        <!-- C-AH-916-WL - Del 1 al 12 (reservado) -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar reserved draggable" 
+                                 style="left: 0%; width: 40%;" 
+                                 data-vehicle="C-AH-916-WL"
+                                 data-client="Prepago"
+                                 data-contract="#1514206"
+                                 data-start="01/11/2025"
+                                 data-end="12/11/2025"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">Prepago - #1514206</div>
+                            </div>
+                        </div>
+
+                        <!-- Categoría H -->
+                        <div class="hour-category-spacer"></div>
+
+                        <!-- H-AH-534-CO - Del 20 al 25 (reservado) -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar reserved draggable" 
+                                 style="left: 63.33%; width: 20%;" 
+                                 data-vehicle="H-AH-534-CO"
+                                 data-client="Prepago XYZ"
+                                 data-contract="-"
+                                 data-start="20/11/2025"
+                                 data-end="25/11/2025"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">Prepago XYZ</div>
+                            </div>
+                        </div>
+
+                        <!-- H-AH-287-WG - Del 1 al 20 -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar rented draggable" 
+                                 style="left: 0%; width: 66.67%;" 
+                                 data-vehicle="H-AH-287-WG"
+                                 data-client="SIHORSKI"
+                                 data-contract="#1504157"
+                                 data-start="01/11/2025"
+                                 data-end="20/11/2025"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">SIHORSKI - #1504157</div>
+                            </div>
+                        </div>
+
+                        <!-- Categoría K -->
+                        <div class="hour-category-spacer"></div>
+
+                        <!-- K-AH-080-IM - Del 22 al 30 (reservado) -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar reserved draggable" 
+                                 style="left: 70%; width: 30%;" 
+                                 data-vehicle="K-AH-080-IM"
+                                 data-client="Prepago"
+                                 data-contract="#1628844"
+                                 data-start="22/11/2025"
+                                 data-end="30/11/2025"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">Prepago - #1628844</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-        <!-- Alertas Tab -->
-        <div id="alertas" class="tab-content">
-            <div class="actions-bar">
-                <h2>Sistema de Alertas</h2>
-                <button class="btn btn-primary" onclick="openModal('configAlert')">Configurar Alertas</button>
-            </div>
 
-            <div class="alerts-section">
-                <div class="alert-card">
-                    <div class="alert-content">
-                        <h4>⚠️ Vehículo próximo a cambio de uso (Renting → Venta)</h4>
-                        <p><strong>C-AH-919-BK</strong> - KWID 1.0 ICONIC OUTSIDER</p>
-                        <p>Tiempo en renting: 11 meses. Cambio estimado en 30 días.</p>
+    <!-- Vista por HORA -->
+    <div id="hourView" class="sheet-view">
+        <div class="hour-view-container">
+            <div class="hour-grid">
+                <!-- Header con vehículos -->
+                <div class="hour-header-vehicles">
+                    <div class="hour-header-cell" style="font-weight: 700; background: var(--primary); color: white;">Vehículo</div>
+                    
+                    <!-- Categoría C -->
+                    <div class="hour-category-label">CATEGORÍA C</div>
+                    <div class="hour-vehicle-cell" data-vehicle="C-AH-919-BK">
+                        <div><strong>C-AH-919-BK</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">KWID 1.0 ICONIC</div>
                     </div>
-                    <div class="alert-time">Hace 2 horas</div>
-                </div>
-
-                <div class="alert-card">
-                    <div class="alert-content">
-                        <h4>⚠️ Vehículo próximo a cambio de uso (Renting → Venta)</h4>
-                        <p><strong>C-AH-916-WL</strong> - KWID 1.0 ICONIC OUTSIDER</p>
-                        <p>Tiempo en renting: 10 meses. Cambio estimado en 60 días.</p>
+                    <div class="hour-vehicle-cell" data-vehicle="C-AH-919-BH">
+                        <div><strong>C-AH-919-BH</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">KWID 1.0 ICONIC</div>
                     </div>
-                    <div class="alert-time">Hace 5 horas</div>
-                </div>
-
-                <div class="alert-card warning">
-                    <div class="alert-content">
-                        <h4>🔧 Mantenimiento programado</h4>
-                        <p><strong>H-AH-534-CO</strong> - SANDERO MANUAL</p>
-                        <p>Service 10.000 km pendiente. Programar antes del 25/11/2025.</p>
+                    <div class="hour-vehicle-cell" data-vehicle="C-AH-916-WL">
+                        <div><strong>C-AH-916-WL</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">KWID 1.0 ICONIC</div>
                     </div>
-                    <div class="alert-time">Ayer</div>
-                </div>
-
-                <div class="alert-card info">
-                    <div class="alert-content">
-                        <h4>📅 Devolución programada próxima</h4>
-                        <p><strong>H-AH-287-WG</strong> - ARGO DRIVE 1.3 MANUAL</p>
-                        <p>Cliente: SIHORSKI. Devolución programada: 20/11/2025.</p>
+                    
+                    <!-- Categoría H -->
+                    <div class="hour-category-label">CATEGORÍA H</div>
+                    <div class="hour-vehicle-cell" data-vehicle="H-AH-534-CO">
+                        <div><strong>H-AH-534-CO</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">SANDERO MANUAL</div>
                     </div>
-                    <div class="alert-time">Hace 5 horas</div>
-                </div>
-
-                <div class="alert-card info">
-                    <div class="alert-content">
-                        <h4>📅 Reserva próxima a iniciar</h4>
-                        <p><strong>H-AH-534-CO</strong> - SANDERO MANUAL</p>
-                        <p>Cliente: Prepago XYZ. Inicio: 20/11/2025.</p>
+                    <div class="hour-vehicle-cell" data-vehicle="H-AH-287-WG">
+                        <div><strong>H-AH-287-WG</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">ARGO DRIVE 1.3</div>
                     </div>
-                    <div class="alert-time">Hoy</div>
-                </div>
-
-                <div class="alert-card warning">
-                    <div class="alert-content">
-                        <h4>⛽ Vehículo sin movimiento</h4>
-                        <p><strong>C-AH-526-UT</strong> - KWID 1.0 ICONIC OUTSIDER</p>
-                        <p>Sin actividad en los últimos 15 días. Verificar estado.</p>
+                    
+                    <!-- Categoría K -->
+                    <div class="hour-category-label">CATEGORÍA K</div>
+                    <div class="hour-vehicle-cell" data-vehicle="K-AH-080-IM">
+                        <div><strong>K-AH-080-IM</strong></div>
+                        <div style="font-size: 0.7rem; color: var(--gray-700);">PRECISION CVT</div>
                     </div>
-                    <div class="alert-time">Hace 1 día</div>
                 </div>
-            </div>
 
-            <div style="margin-top: 2rem; background: white; padding: 1.5rem; border-radius: 8px;">
-                <h3 style="margin-bottom: 1rem;">Configuración de Notificaciones</h3>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" checked> Enviar alertas por email
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" checked> Notificaciones en la aplicación
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox"> Notificaciones SMS (próximamente)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label>Alertar cuando el vehículo alcance (meses en renting):</label>
-                    <select class="filter-select" style="width: 200px;">
-                        <option>9 meses</option>
-                        <option>10 meses</option>
-                        <option selected>11 meses</option>
-                        <option>12 meses</option>
-                    </select>
+                <!-- Timeline con horas -->
+                <div class="hour-timeline-container">
+                    <!-- Header de fechas y horas -->
+                    <div class="hour-timeline-header hour-header-grid">
+                        <div class="hour-date-group">
+                            <div class="hour-date-label">Vie 18/11</div>
+                            <div class="hour-slots">
+                                <div class="hour-slot">6</div>
+                                <div class="hour-slot">12</div>
+                                <div class="hour-slot">18</div>
+                                <div class="hour-slot">24</div>
+                            </div>
+                        </div>
+                        <div class="hour-date-group">
+                            <div class="hour-date-label">Sáb 19/11</div>
+                            <div class="hour-slots">
+                                <div class="hour-slot">6</div>
+                                <div class="hour-slot">12</div>
+                                <div class="hour-slot">18</div>
+                                <div class="hour-slot">24</div>
+                            </div>
+                        </div>
+                        <div class="hour-date-group">
+                            <div class="hour-date-label">Dom 20/11</div>
+                            <div class="hour-slots">
+                                <div class="hour-slot">6</div>
+                                <div class="hour-slot">12</div>
+                                <div class="hour-slot">18</div>
+                                <div class="hour-slot">24</div>
+                            </div>
+                        </div>
+                        <div class="hour-date-group">
+                            <div class="hour-date-label">Lun 21/11</div>
+                            <div class="hour-slots">
+                                <div class="hour-slot">6</div>
+                                <div class="hour-slot">12</div>
+                                <div class="hour-slot">18</div>
+                                <div class="hour-slot">24</div>
+                            </div>
+                        </div>
+                        <div class="hour-date-group">
+                            <div class="hour-date-label">Mar 22/11</div>
+                            <div class="hour-slots">
+                                <div class="hour-slot">6</div>
+                                <div class="hour-slot">12</div>
+                                <div class="hour-slot">18</div>
+                                <div class="hour-slot">24</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reservas por vehículo -->
+                    <div class="hour-timeline-body">
+                        <!-- Categoría C -->
+                        <div class="hour-category-spacer"></div>
+                        
+                        <!-- C-AH-919-BK -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar rented draggable" 
+                                 style="left: 0%; width: 100%;" 
+                                 data-vehicle="C-AH-919-BK"
+                                 data-client="Cliente A"
+                                 data-contract="#1509661"
+                                 data-start="18/11 06:00"
+                                 data-end="22/11 24:00"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">Cliente A - #1509661</div>
+                            </div>
+                        </div>
+
+                        <!-- C-AH-919-BH -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar rented draggable" 
+                                 style="left: 25%; width: 55%;" 
+                                 data-vehicle="C-AH-919-BH"
+                                 data-client="Prepago"
+                                 data-contract="#06856"
+                                 data-start="19/11 12:00"
+                                 data-end="21/11 18:00"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">#06856</div>
+                            </div>
+                        </div>
+
+                        <!-- C-AH-916-WL -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar reserved draggable" 
+                                 style="left: 0%; width: 30%;" 
+                                 data-vehicle="C-AH-916-WL"
+                                 data-client="Prepago"
+                                 data-contract="#1514206"
+                                 data-start="18/11 08:00"
+                                 data-end="19/11 18:00"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">Prepago - #1514206</div>
+                            </div>
+                        </div>
+
+                        <!-- Categoría H -->
+                        <div class="hour-category-spacer"></div>
+
+                        <!-- H-AH-534-CO -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar reserved draggable" 
+                                 style="left: 52.5%; width: 37.5%;" 
+                                 data-vehicle="H-AH-534-CO"
+                                 data-client="Prepago XYZ"
+                                 data-contract="-"
+                                 data-start="20/11 18:00"
+                                 data-end="22/11 12:00"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">Prepago XYZ</div>
+                            </div>
+                        </div>
+
+                        <!-- H-AH-287-WG -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar rented draggable" 
+                                 style="left: 0%; width: 62.5%;" 
+                                 data-vehicle="H-AH-287-WG"
+                                 data-client="SIHORSKI"
+                                 data-contract="#1504157"
+                                 data-start="18/11 06:00"
+                                 data-end="21/11 12:00"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">SIHORSKI - #1504157</div>
+                            </div>
+                        </div>
+
+                        <!-- Categoría K -->
+                        <div class="hour-category-spacer"></div>
+
+                        <!-- K-AH-080-IM -->
+                        <div class="hour-vehicle-row">
+                            <div class="reservation-bar reserved draggable" 
+                                 style="left: 80%; width: 20%;" 
+                                 data-vehicle="K-AH-080-IM"
+                                 data-client="Prepago"
+                                 data-contract="#1628844"
+                                 data-start="22/11 12:00"
+                                 data-end="22/11 24:00"
+                                 onclick="showReservationDetails(this)"
+                                 draggable="true"
+                                 ondragstart="drag(event)">
+                                <div class="reservation-label">Prepago - #1628844</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="sheet-legend">
+        <div class="sheet-legend-item">
+            <div class="sheet-legend-color" style="background: #10b981;"></div>
+            <span>Alquilado</span>
+        </div>
+        <div class="sheet-legend-item">
+            <div class="sheet-legend-color" style="background: #3b82f6;"></div>
+            <span>Reservado</span>
+        </div>
+        <div class="sheet-legend-item">
+            <div class="sheet-legend-color" style="background: white;"></div>
+            <span>Disponible</span>
+        </div>
+        <div class="sheet-legend-item">
+            <div class="sheet-legend-color" style="background: #fef3c7;"></div>
+            <span>Feriado</span>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Detalles de Reserva -->
+<div id="reservationModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Detalles de la Reserva</h2>
+            <button class="close-btn" onclick="closeModal('reservationModal')">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="reservation-detail-grid">
+                <div class="detail-item">
+                    <label>Vehículo</label>
+                    <div id="detailVehicle" class="detail-value"></div>
+                </div>
+                <div class="detail-item">
+                    <label>Cliente</label>
+                    <div id="detailClient" class="detail-value"></div>
+                </div>
+                <div class="detail-item">
+                    <label>Número de Contrato</label>
+                    <div id="detailContract" class="detail-value"></div>
+                </div>
+                <div class="detail-item">
+                    <label>Fecha/Hora Inicio</label>
+                    <div id="detailStart" class="detail-value"></div>
+                </div>
+                <div class="detail-item">
+                    <label>Fecha/Hora Fin</label>
+                    <div id="detailEnd" class="detail-value"></div>
+                </div>
+                <div class="detail-item">
+                    <label>Estado</label>
+                    <div id="detailStatus" class="detail-value"></div>
+                </div>
+            </div>
+            <div style="margin-top: 1.5rem;">
+                <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Observaciones</label>
+                <textarea style="width: 100%; padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 6px; min-height: 80px;" placeholder="Agregar notas..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal('reservationModal')">Cerrar</button>
+            <button class="btn btn-primary" onclick="saveReservationChanges()">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
 
         <!-- Calendario Tab -->
         <div id="calendario" class="tab-content">
@@ -2208,6 +2425,125 @@ function updateCalendar() {
     const month = document.getElementById('monthSelector').value;
     alert(`Cambiando al mes: ${month}\n\nEsta funcionalidad generaría dinámicamente el calendario para el mes seleccionado.`);
 }
+// Toggle entre vista día y hora
+function toggleViewMode() {
+    const mode = document.getElementById('viewMode').value;
+    const dayView = document.getElementById('dayView');
+    const hourView = document.getElementById('hourView');
+    
+    if (mode === 'day') {
+        dayView.style.display = 'block';
+        hourView.style.display = 'none';
+    } else {
+        dayView.style.display = 'none';
+        hourView.style.display = 'block';
+    }
+}
+
+// Mostrar detalles de reserva
+function showReservationDetails(element) {
+    const vehicle = element.getAttribute('data-vehicle');
+    const client = element.getAttribute('data-client');
+    const contract = element.getAttribute('data-contract');
+    const start = element.getAttribute('data-start');
+    const end = element.getAttribute('data-end');
+    const isRented = element.classList.contains('rented');
+    
+    document.getElementById('detailVehicle').textContent = vehicle;
+    document.getElementById('detailClient').textContent = client;
+    document.getElementById('detailContract').textContent = contract;
+    document.getElementById('detailStart').textContent = start;
+    document.getElementById('detailEnd').textContent = end;
+    document.getElementById('detailStatus').innerHTML = isRented 
+        ? '<span class="status-badge status-alquilado">Alquilado</span>'
+        : '<span class="status-badge status-reservado">Reservado</span>';
+    
+    openModal('reservationModal');
+}
+
+// Guardar cambios de reserva
+function saveReservationChanges() {
+    alert('Cambios guardados correctamente.\n\nSe ha registrado la modificación en el log.');
+    closeModal('reservationModal');
+}
+
+// Funciones de arrastrar
+let draggedElement = null;
+
+function drag(event) {
+    draggedElement = event.target;
+    event.dataTransfer.effectAllowed = 'move';
+    event.target.style.opacity = '0.5';
+}
+
+// Permitir drop en las filas
+document.addEventListener('DOMContentLoaded', function() {
+    const rows = document.querySelectorAll('.hour-vehicle-row');
+    rows.forEach(row => {
+        row.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        });
+        
+        row.addEventListener('drop', function(e) {
+            e.preventDefault();
+            if (draggedElement) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percentage = (x / rect.width) * 100;
+                
+                draggedElement.style.left = Math.max(0, Math.min(percentage, 90)) + '%';
+                draggedElement.style.opacity = '1';
+                
+                alert('Reserva reubicada. Los cambios se guardarán automáticamente.');
+            }
+        });
+        
+        row.addEventListener('dragleave', function() {
+            if (draggedElement) {
+                draggedElement.style.opacity = '1';
+            }
+        });
+    });
+});
+
+// Permitir redimensionar las barras
+document.addEventListener('DOMContentLoaded', function() {
+    const bars = document.querySelectorAll('.reservation-bar');
+    bars.forEach(bar => {
+        bar.addEventListener('mousedown', function(e) {
+            if (e.offsetX > this.offsetWidth - 10) {
+                const startX = e.clientX;
+                const startWidth = parseFloat(this.style.width);
+                
+                const onMouseMove = (e) => {
+                    const diff = ((e.clientX - startX) / this.parentElement.offsetWidth) * 100;
+                    const newWidth = Math.max(5, Math.min(100 - parseFloat(this.style.left), startWidth + diff));
+                    this.style.width = newWidth + '%';
+                };
+                
+                const onMouseUp = () => {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                    alert('Duración de reserva modificada.');
+                };
+                
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+                e.preventDefault();
+            }
+        });
+        
+        // Cambiar cursor al pasar por el borde derecho
+        bar.addEventListener('mousemove', function(e) {
+            if (e.offsetX > this.offsetWidth - 10) {
+                this.style.cursor = 'ew-resize';
+            } else {
+                this.style.cursor = 'grab';
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
