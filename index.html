@@ -761,13 +761,18 @@
 }
 
 .sheet-cell-holiday {
-    background: #fef3c7 !important;
+    background: #fee2e2 !important;
     position: relative;
 }
 
 .sheet-cell-holiday::after {
     content: '🎉';
     font-size: 0.7rem;
+}
+
+/* Feriado en vista de horas/días */
+.hour-vehicle-row.holiday {
+    background-color: #fee2e2;
 }
 
 .sheet-legend {
@@ -1135,7 +1140,7 @@
             <div class="logo">
                 <div>
                     <h1>Hertz Fleet Manager</h1>
-                    <div class="logo-subtitle">Grupo Randazzo</div>
+                    <div class="logo-subtitle">Grupo Randazo</div>
                 </div>
             </div>
             <div class="user-info">
@@ -1147,8 +1152,8 @@
 
     <div class="container">
         <div class="tabs">
-            <button class="tab active" onclick="showTab('vista-planilla')">Vista Planilla</button>
-            <button class="tab" onclick="showTab('dashboard')">Dashboard</button>
+            <button class="tab active" onclick="showTab('dashboard')">Dashboard</button>
+            <button class="tab" onclick="showTab('vista-planilla')">Vista Planilla</button>
             <button class="tab" onclick="showTab('flota')">Gestión de Flota</button>
             <button class="tab" onclick="showTab('alertas')">Alertas</button>
             <button class="tab" onclick="showTab('calendario')">Calendario</button>
@@ -1158,7 +1163,7 @@
         </div>
 
         <!-- Dashboard Tab -->
-        <div id="dashboard" class="tab-content">
+        <div id="dashboard" class="tab-content active">
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Flota Total</h3>
@@ -1348,8 +1353,173 @@
                 </table>
             </div>
         </div>
+
+        <!-- Alertas Tab -->
+<div id="alertas" class="tab-content">
+    <div class="actions-bar">
+        <h2>Sistema de Alertas</h2>
+        <button class="btn btn-primary" onclick="openModal('addAlert')">+ Configurar Nueva Alerta</button>
+    </div>
+
+    <!-- Resumen de Alertas Activas -->
+    <div class="stats-grid" style="margin-bottom: 2rem;">
+        <div class="stat-card">
+            <h3>Alertas Activas</h3>
+            <div class="value">2</div>
+        </div>
+        <div class="stat-card">
+            <h3>Notificaciones Enviadas (30 días)</h3>
+            <div class="value">47</div>
+        </div>
+        <div class="stat-card">
+            <h3>Usuarios Suscritos</h3>
+            <div class="value">4</div>
+        </div>
+    </div>
+
+    <!-- Alertas Configuradas -->
+    <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Alertas Configuradas</h3>
+    <div style="display: grid; gap: 1.5rem; margin-bottom: 2rem;">
+        <!-- Alerta 1: Vehículos próximos a 12 meses -->
+        <div style="background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid var(--warning);">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        ⚠️ Vehículos próximos a cambio de uso (12 meses)
+                        <span style="background: var(--success); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem;">Activa</span>
+                    </h4>
+                    <p style="color: var(--gray-700); font-size: 0.9rem;">Notifica cuando un vehículo en renting alcanza 11 meses de uso y está próximo a pasar a venta.</p>
+                </div>
+                <button class="action-btn" onclick="openModal('editAlert1')">Editar</button>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <div>
+                    <div style="font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.5rem;">Frecuencia</div>
+                    <div style="font-weight: 600;">Diaria (9:00 AM)</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.5rem;">Canal</div>
+                    <div style="font-weight: 600;">📧 Email</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.5rem;">Última ejecución</div>
+                    <div style="font-weight: 600;">Hoy, 09:00</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <div style="font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.75rem; font-weight: 600;">Usuarios que reciben esta alerta:</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <span style="background: var(--gray-100); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem;">
+                        👤 Admin Usuario (admin@gruporandazo.com)
+                    </span>
+                    <span style="background: var(--gray-100); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem;">
+                        👤 Juan Operador (operador@gruporandazo.com)
+                    </span>
+                    <span style="background: var(--gray-100); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem;">
+                        👤 María Supervisor (supervisor@gruporandazo.com)
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerta 2: Modificaciones de reservas -->
+        <div style="background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid var(--info);">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        🔔 Modificaciones de Reservas
+                        <span style="background: var(--success); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem;">Activa</span>
+                    </h4>
+                    <p style="color: var(--gray-700); font-size: 0.9rem;">Notifica cuando se crea, modifica o cancela una reserva en el sistema.</p>
+                </div>
+                <button class="action-btn" onclick="openModal('editAlert2')">Editar</button>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <div>
+                    <div style="font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.5rem;">Frecuencia</div>
+                    <div style="font-weight: 600;">Tiempo real</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.5rem;">Canal</div>
+                    <div style="font-weight: 600;">📧 Email</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.5rem;">Última ejecución</div>
+                    <div style="font-weight: 600;">Hace 2 horas</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <div style="font-size: 0.85rem; color: var(--gray-700); margin-bottom: 0.75rem; font-weight: 600;">Usuarios que reciben esta alerta:</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <span style="background: var(--gray-100); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem;">
+                        👤 Admin Usuario (admin@gruporandazo.com)
+                    </span>
+                    <span style="background: var(--gray-100); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem;">
+                        👤 María Supervisor (supervisor@gruporandazo.com)
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historial de Alertas Recientes -->
+    <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Historial de Notificaciones (Últimas 7 días)</h3>
+    <div class="alerts-section">
+        <div class="alert-card">
+            <div class="alert-content">
+                <h4>⚠️ Vehículo próximo a cambio de uso (Renting → Venta)</h4>
+                <p><strong>C-AH-919-BK</strong> - KWID 1.0 ICONIC OUTSIDER</p>
+                <p>Tiempo en renting: 11 meses. Cambio estimado en 30 días.</p>
+                <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--gray-700);">
+                    Enviado a: Admin Usuario, Juan Operador, María Supervisor
+                </div>
+            </div>
+            <div class="alert-time">Hace 2 horas</div>
+        </div>
+
+        <div class="alert-card info">
+            <div class="alert-content">
+                <h4>🔔 Nueva reserva creada</h4>
+                <p><strong>K-AH-080-IM</strong> - PRECISION CVT</p>
+                <p>Cliente: Prepago #1628844. Fechas: 22/11 al 30/11.</p>
+                <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--gray-700);">
+                    Enviado a: Admin Usuario, María Supervisor
+                </div>
+            </div>
+            <div class="alert-time">Hace 5 horas</div>
+        </div>
+
+        <div class="alert-card warning">
+            <div class="alert-content">
+                <h4>🔧 Mantenimiento programado</h4>
+                <p><strong>H-AH-534-CO</strong> - SANDERO MANUAL</p>
+                <p>Service 10.000 km pendiente. Programar antes del 25/11/2025.</p>
+                <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--gray-700);">
+                    Enviado a: Admin Usuario, Juan Operador
+                </div>
+            </div>
+            <div class="alert-time">Ayer</div>
+        </div>
+
+        <div class="alert-card info">
+            <div class="alert-content">
+                <h4>🔔 Reserva modificada</h4>
+                <p><strong>H-AH-287-WG</strong> - ARGO DRIVE 1.3 MANUAL</p>
+                <p>Cliente SIHORSKI extendió reserva hasta 25/11.</p>
+                <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--gray-700);">
+                    Enviado a: Admin Usuario, María Supervisor
+                </div>
+            </div>
+            <div class="alert-time">Hace 2 días</div>
+        </div>
+    </div>
+</div>
 <!-- Vista Planilla Tab (Excel Style con Horas) -->
-<div id="vista-planilla" class="tab-content active">
+<div id="vista-planilla" class="tab-content">
     <div class="sheet-actions">
         <div>
             <h2 style="margin-bottom: 0.5rem;">Vista Planilla - Disponibilidad</h2>
@@ -1377,8 +1547,9 @@
         </div>
     </div>
 
-    <!-- Filtros de búsqueda -->
-    <div style="padding: 1rem; background: white; border-bottom: 1px solid var(--gray-200); display: flex; gap: 1rem; flex-wrap: wrap;">
+<!-- Filtros de búsqueda -->
+<div style="padding: 1rem; background: white; border-bottom: 1px solid var(--gray-200); display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; flex: 1;">
         <input type="text" class="search-input" placeholder="Buscar patente..." id="sheetSearchPatent" onkeyup="filterSheetTable()" style="flex: 1; max-width: 200px;">
         <input type="text" class="search-input" placeholder="Buscar modelo..." id="sheetSearchModel" onkeyup="filterSheetTable()" style="flex: 1; max-width: 200px;">
         <select class="filter-select" id="sheetCategoryFilter" onchange="filterSheetTable()">
@@ -1394,6 +1565,8 @@
             <option value="alquilado">Alquilado</option>
         </select>
     </div>
+    <button class="btn btn-primary" onclick="openModal('addVehicleToSheet')">+ Agregar Vehículo</button>
+</div>
 
     <!-- Vista por DÍA -->
     <div id="dayView" class="sheet-view" style="display: none;">
@@ -1658,15 +1831,15 @@
                                 <div class="hour-slot">24</div>
                             </div>
                         </div>
-                        <div class="hour-date-group">
-                            <div class="hour-date-label">Lun 21/11</div>
-                            <div class="hour-slots">
-                                <div class="hour-slot">6</div>
-                                <div class="hour-slot">12</div>
-                                <div class="hour-slot">18</div>
-                                <div class="hour-slot">24</div>
-                            </div>
-                        </div>
+<div class="hour-date-group" onclick="showSingleDay(20, 'Dom 20/11')" style="background: #fee2e2;">
+    <div class="hour-date-label" style="background: #fecaca;">Dom 20/11 - Feriado 🎉</div>
+    <div class="hour-slots">
+        <div class="hour-slot">6</div>
+        <div class="hour-slot">12</div>
+        <div class="hour-slot">18</div>
+        <div class="hour-slot">24</div>
+    </div>
+</div>
                         <div class="hour-date-group">
                             <div class="hour-date-label">Mar 22/11</div>
                             <div class="hour-slots">
@@ -2089,7 +2262,7 @@
                     <tbody>
                         <tr>
                             <td>Admin Usuario</td>
-                            <td>admin@grupoRandazzo.com</td>
+                            <td>admin@gruporandazo.com</td>
                             <td><span class="user-badge user-admin">Administrador</span></td>
                             <td>Hoy, 14:32</td>
                             <td><span class="status-badge status-alquilado">Activo</span></td>
@@ -2099,7 +2272,7 @@
                         </tr>
                         <tr>
                             <td>Juan Operador</td>
-                            <td>operador@grupoRandazzo.com</td>
+                            <td>operador@gruporandazo.com</td>
                             <td><span class="user-badge user-operator">Operador</span></td>
                             <td>Hoy, 12:15</td>
                             <td><span class="status-badge status-alquilado">Activo</span></td>
@@ -2109,7 +2282,7 @@
                         </tr>
                         <tr>
                             <td>María Supervisor</td>
-                            <td>supervisor@grupoRandazzo.com</td>
+                            <td>supervisor@gruporandazo.com</td>
                             <td><span class="user-badge user-operator">Operador</span></td>
                             <td>Ayer, 18:45</td>
                             <td><span class="status-badge status-alquilado">Activo</span></td>
@@ -2119,7 +2292,7 @@
                         </tr>
                         <tr>
                             <td>Pedro Consulta</td>
-                            <td>consulta@grupoRandazzo.com</td>
+                            <td>consulta@gruporandazo.com</td>
                             <td><span class="user-badge user-viewer">Visualizador</span></td>
                             <td>15/11/2025</td>
                             <td><span class="status-badge status-alquilado">Activo</span></td>
@@ -2756,8 +2929,164 @@ function restoreDayView(view) {
 function adjustBarsForSingleDay(view) {
     // En producción, esto recalcularía las posiciones de las barras
     // basándose en los datos del día específico
-    alert('En producción, aquí se cargarían los datos detallados del día seleccionado con todas las horas.');
+    // Navegación directa sin alerta
+}
+// Toggle all vehicles checkbox
+function toggleAllVehicles(checkbox) {
+    const checkboxes = document.querySelectorAll('.vehicle-checkbox');
+    checkboxes.forEach(cb => cb.checked = checkbox.checked);
+}
+
+// Add selected vehicles
+function addSelectedVehicles() {
+    const selected = Array.from(document.querySelectorAll('.vehicle-checkbox:checked'));
+    const count = selected.length;
+    
+    alert(`${count} vehículo(s) agregado(s) a la planilla.\n\nSe ha registrado la acción en el log.`);
+    closeModal('addVehicleToSheet');
+}
+
+// Save new alert
+function saveNewAlert() {
+    alert('Alerta configurada correctamente.\n\nLos usuarios seleccionados comenzarán a recibir notificaciones según la frecuencia establecida.\n\nSe ha registrado la acción en el log.');
+    closeModal('addAlert');
 }
     </script>
+
+    <!-- Modal Agregar Vehículo a Planilla -->
+<div id="addVehicleToSheet" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Agregar Vehículo a Planilla</h2>
+            <button class="close-btn" onclick="closeModal('addVehicleToSheet')">×</button>
+        </div>
+        <div class="modal-body">
+            <p style="margin-bottom: 1rem; color: var(--gray-700);">Selecciona vehículos de la flota para agregar a la vista de planilla:</p>
+            
+            <div style="max-height: 400px; overflow-y: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead style="position: sticky; top: 0; background: white;">
+                        <tr style="border-bottom: 2px solid var(--gray-300);">
+                            <th style="padding: 0.75rem; text-align: left;">
+                                <input type="checkbox" id="selectAllVehicles" onchange="toggleAllVehicles(this)">
+                            </th>
+                            <th style="padding: 0.75rem; text-align: left;">Categoría</th>
+                            <th style="padding: 0.75rem; text-align: left;">Patente</th>
+                            <th style="padding: 0.75rem; text-align: left;">Modelo</th>
+                            <th style="padding: 0.75rem; text-align: left;">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--gray-200);">
+                            <td style="padding: 0.75rem;"><input type="checkbox" class="vehicle-checkbox" value="C-AH-919-BK" checked></td>
+                            <td style="padding: 0.75rem;"><span class="category-badge">C</span></td>
+                            <td style="padding: 0.75rem;"><strong>C-AH-919-BK</strong></td>
+                            <td style="padding: 0.75rem;">KWID 1.0 ICONIC OUTSIDER</td>
+                            <td style="padding: 0.75rem;"><span class="status-mini status-alquilado">Alquilado</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--gray-200);">
+                            <td style="padding: 0.75rem;"><input type="checkbox" class="vehicle-checkbox" value="H-AH-534-CO" checked></td>
+                            <td style="padding: 0.75rem;"><span class="category-badge">H</span></td>
+                            <td style="padding: 0.75rem;"><strong>H-AH-534-CO</strong></td>
+                            <td style="padding: 0.75rem;">SANDERO MANUAL</td>
+                            <td style="padding: 0.75rem;"><span class="status-mini status-reservado">Reservado</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--gray-200);">
+                            <td style="padding: 0.75rem;"><input type="checkbox" class="vehicle-checkbox" value="C-AH-526-UT"></td>
+                            <td style="padding: 0.75rem;"><span class="category-badge">C</span></td>
+                            <td style="padding: 0.75rem;"><strong>C-AH-526-UT</strong></td>
+                            <td style="padding: 0.75rem;">KWID 1.0 ICONIC OUTSIDER</td>
+                            <td style="padding: 0.75rem;"><span class="status-mini status-disponible">Disponible</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--gray-200);">
+                            <td style="padding: 0.75rem;"><input type="checkbox" class="vehicle-checkbox" value="H-AH-449-HZ"></td>
+                            <td style="padding: 0.75rem;"><span class="category-badge">H</span></td>
+                            <td style="padding: 0.75rem;"><strong>H-AH-449-HZ</strong></td>
+                            <td style="padding: 0.75rem;">ARGO DRIVE 1.3 MANUAL</td>
+                            <td style="padding: 0.75rem;"><span class="status-mini status-disponible">Disponible</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--gray-200);">
+                            <td style="padding: 0.75rem;"><input type="checkbox" class="vehicle-checkbox" value="K-AH-080-IM" checked></td>
+                            <td style="padding: 0.75rem;"><span class="category-badge">K</span></td>
+                            <td style="padding: 0.75rem;"><strong>K-AH-080-IM</strong></td>
+                            <td style="padding: 0.75rem;">PRECISION CVT</td>
+                            <td style="padding: 0.75rem;"><span class="status-mini status-reservado">Reservado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal('addVehicleToSheet')">Cancelar</button>
+            <button class="btn btn-primary" onclick="addSelectedVehicles()">Agregar Seleccionados</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Agregar Nueva Alerta -->
+<div id="addAlert" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Configurar Nueva Alerta</h2>
+            <button class="close-btn" onclick="closeModal('addAlert')">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Tipo de Alerta *</label>
+                <select required>
+                    <option value="">Seleccionar...</option>
+                    <option>Vehículo próximo a venta (tiempo en renting)</option>
+                    <option>Nueva reserva creada</option>
+                    <option>Reserva modificada</option>
+                    <option>Reserva cancelada</option>
+                    <option>Devolución próxima (24h antes)</option>
+                    <option>Mantenimiento programado</option>
+                    <option>Vehículo sin actividad (X días)</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Frecuencia *</label>
+                    <select required>
+                        <option>Tiempo real</option>
+                        <option>Diaria</option>
+                        <option>Semanal</option>
+                        <option>Mensual</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Hora de envío</label>
+                    <input type="time" value="09:00">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Canal de notificación *</label>
+                <div style="display: flex; gap: 1rem;">
+                    <label><input type="checkbox" checked> Email</label>
+                    <label><input type="checkbox"> SMS (próximamente)</label>
+                    <label><input type="checkbox" checked> Notificación en la app</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Usuarios que recibirán esta alerta *</label>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 200px; overflow-y: auto; padding: 0.5rem; border: 1px solid var(--gray-300); border-radius: 6px;">
+                    <label><input type="checkbox" checked> Admin Usuario (admin@gruporandazo.com)</label>
+                    <label><input type="checkbox" checked> Juan Operador (operador@gruporandazo.com)</label>
+                    <label><input type="checkbox"> María Supervisor (supervisor@gruporandazo.com)</label>
+                    <label><input type="checkbox"> Pedro Consulta (consulta@gruporandazo.com)</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Mensaje personalizado (opcional)</label>
+                <textarea placeholder="Puedes agregar un mensaje adicional que se incluirá en la alerta..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal('addAlert')">Cancelar</button>
+            <button class="btn btn-primary" onclick="saveNewAlert()">Crear Alerta</button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
