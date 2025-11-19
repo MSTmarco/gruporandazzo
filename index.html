@@ -829,7 +829,7 @@
 .vehicle-row:hover {
     background: var(--gray-50);
 }
-/* Vista por Horas y Días - ALINEACIÓN PERFECTA */
+/* Vista por Horas y Días - ALINEACIÓN PERFECTA Y ALTURAS CORREGIDAS */
 .hour-view-container {
     overflow-x: auto;
     background: white;
@@ -854,11 +854,13 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: var(--gray-100);
-    height: 50px;
+    background: var(--primary);
+    color: white;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 700;
 }
 
 .hour-category-label {
@@ -869,7 +871,7 @@
     font-size: 0.75rem;
     text-align: center;
     border-bottom: 1px solid var(--gray-300);
-    height: 31px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -897,17 +899,23 @@
     border-bottom: 2px solid var(--gray-400);
 }
 
-/* Header con grid de horas - CORREGIDO */
+/* Header con grid de horas - CORREGIDO CON ALTURAS */
 .hour-header-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    height: 50px;
+    height: 60px;
 }
 
 .hour-date-group {
-    border-right: 1px solid var(--gray-300);
+    border-right: 2px solid var(--gray-300);
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.hour-date-group:hover {
+    background: var(--gray-50);
 }
 
 .hour-date-label {
@@ -917,12 +925,16 @@
     font-weight: 700;
     font-size: 0.85rem;
     border-bottom: 1px solid var(--gray-300);
-    flex: 1;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hour-slots {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    height: 30px;
 }
 
 .hour-slot {
@@ -932,17 +944,20 @@
     font-weight: 600;
     border-right: 1px solid var(--gray-200);
     background: var(--gray-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hour-slot:last-child {
     border-right: none;
 }
 
-/* Header para vista por día - CORREGIDO */
+/* Header para vista por día - CORREGIDO CON ALTURAS */
 .hour-timeline-header:not(.hour-header-grid) {
     display: grid;
     grid-template-columns: repeat(30, 1fr);
-    height: 50px;
+    height: 60px;
 }
 
 .day-date-cell {
@@ -951,11 +966,17 @@
     font-weight: 600;
     font-size: 0.75rem;
     background: var(--gray-100);
-    border-right: 1px solid var(--gray-300);
+    border-right: 2px solid var(--gray-300);
     border-bottom: 2px solid var(--gray-400);
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.day-date-cell:hover {
+    background: var(--gray-200);
 }
 
 .hour-timeline-body {
@@ -965,7 +986,7 @@
 }
 
 .hour-category-spacer {
-    height: 31px;
+    height: 35px;
     background: #064e3b;
     border-bottom: 1px solid var(--gray-300);
     width: 100%;
@@ -980,9 +1001,10 @@
         repeating-linear-gradient(
             90deg,
             transparent 0%,
-            transparent calc(25% - 1px),
-            var(--gray-200) calc(25% - 1px),
-            var(--gray-200) 25%
+            transparent calc(20% - 1px),
+            rgba(209, 213, 219, 0.3) calc(20% - 1px),
+            rgba(209, 213, 219, 0.3) calc(20% + 1px),
+            transparent calc(20% + 1px)
         );
 }
 
@@ -1060,6 +1082,50 @@
     background: var(--gray-50);
     border-radius: 6px;
     border: 1px solid var(--gray-200);
+}
+
+/* Vista de día individual con horas */
+.single-day-view .hour-header-grid {
+    grid-template-columns: 1fr;
+}
+
+.single-day-view .hour-date-group {
+    border-right: none;
+}
+
+.single-day-view .hour-slots {
+    grid-template-columns: repeat(24, 1fr);
+}
+
+.single-day-view .hour-vehicle-row {
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent 0%,
+            transparent calc(4.1667% - 1px),
+            rgba(209, 213, 219, 0.3) calc(4.1667% - 1px),
+            rgba(209, 213, 219, 0.3) calc(4.1667% + 1px),
+            transparent calc(4.1667% + 1px)
+        );
+}
+
+/* Botón para volver a vista completa */
+.back-to-full-view {
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-to-full-view:hover {
+    background: var(--gray-800);
 }
     </style>
 </head>
@@ -1565,7 +1631,7 @@
                 <div class="hour-timeline-container">
                     <!-- Header de fechas y horas -->
                     <div class="hour-timeline-header hour-header-grid">
-                        <div class="hour-date-group">
+                        <div class="hour-date-group" onclick="showSingleDay(18, 'Vie 18/11')">
                             <div class="hour-date-label">Vie 18/11</div>
                             <div class="hour-slots">
                                 <div class="hour-slot">6</div>
@@ -1574,7 +1640,7 @@
                                 <div class="hour-slot">24</div>
                             </div>
                         </div>
-                        <div class="hour-date-group">
+                        <div class="hour-date-group" onclick="showSingleDay(19, 'Sab 19/11')">
                             <div class="hour-date-label">Sáb 19/11</div>
                             <div class="hour-slots">
                                 <div class="hour-slot">6</div>
@@ -1583,7 +1649,7 @@
                                 <div class="hour-slot">24</div>
                             </div>
                         </div>
-                        <div class="hour-date-group">
+                        <div class="hour-date-group" onclick="showSingleDay(20, 'Dom 20/11')">
                             <div class="hour-date-label">Dom 20/11</div>
                             <div class="hour-slots">
                                 <div class="hour-slot">6</div>
@@ -2544,6 +2610,154 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+// Vista de día individual
+let currentView = 'full'; // 'full' o 'single-day'
+let currentSingleDay = null;
+
+function showSingleDay(dayNumber, dayName) {
+    currentView = 'single-day';
+    currentSingleDay = dayNumber;
+    
+    const hourView = document.getElementById('hourView');
+    const dayView = document.getElementById('dayView');
+    
+    // Determinar qué vista está activa
+    const activeView = hourView.style.display !== 'none' ? hourView : dayView;
+    
+    // Agregar clase para vista de día individual
+    activeView.querySelector('.hour-view-container').classList.add('single-day-view');
+    
+    // Actualizar header
+    const headerGrid = activeView.querySelector('.hour-header-grid') || activeView.querySelector('.hour-timeline-header');
+    
+    if (document.getElementById('viewMode').value === 'hour') {
+        // Vista por hora - mostrar 24 horas
+        headerGrid.innerHTML = `
+            <div class="hour-date-group">
+                <div class="hour-date-label">${dayName}</div>
+                <div class="hour-slots" style="grid-template-columns: repeat(24, 1fr);">
+                    ${Array.from({length: 24}, (_, i) => `<div class="hour-slot">${i}</div>`).join('')}
+                </div>
+            </div>
+        `;
+    } else {
+        // Vista por día - mostrar solo ese día
+        headerGrid.innerHTML = `<div class="day-date-cell" style="cursor: default;">${dayName}</div>`;
+    }
+    
+    // Agregar botón para volver
+    const backButton = document.createElement('button');
+    backButton.className = 'back-to-full-view';
+    backButton.innerHTML = '← Volver a vista completa';
+    backButton.onclick = backToFullView;
+    
+    // Insertar botón si no existe
+    if (!activeView.querySelector('.back-to-full-view')) {
+        activeView.insertBefore(backButton, activeView.firstChild);
+    }
+    
+    // Ajustar barras de reserva (simulación - en producción esto vendría del backend)
+    adjustBarsForSingleDay(activeView);
+}
+
+function backToFullView() {
+    currentView = 'full';
+    currentSingleDay = null;
+    
+    const hourView = document.getElementById('hourView');
+    const dayView = document.getElementById('dayView');
+    
+    // Determinar qué vista está activa
+    const activeView = hourView.style.display !== 'none' ? hourView : dayView;
+    
+    // Quitar clase de vista individual
+    activeView.querySelector('.hour-view-container').classList.remove('single-day-view');
+    
+    // Quitar botón de volver
+    const backButton = activeView.querySelector('.back-to-full-view');
+    if (backButton) {
+        backButton.remove();
+    }
+    
+    // Restaurar vista original
+    if (document.getElementById('viewMode').value === 'hour') {
+        restoreHourView(activeView);
+    } else {
+        restoreDayView(activeView);
+    }
+}
+
+function restoreHourView(view) {
+    const headerGrid = view.querySelector('.hour-timeline-header');
+    headerGrid.className = 'hour-timeline-header hour-header-grid';
+    headerGrid.innerHTML = `
+        <div class="hour-date-group" onclick="showSingleDay(18, 'Vie 18/11')">
+            <div class="hour-date-label">Vie 18/11</div>
+            <div class="hour-slots">
+                <div class="hour-slot">6</div>
+                <div class="hour-slot">12</div>
+                <div class="hour-slot">18</div>
+                <div class="hour-slot">24</div>
+            </div>
+        </div>
+        <div class="hour-date-group" onclick="showSingleDay(19, 'Sáb 19/11')">
+            <div class="hour-date-label">Sáb 19/11</div>
+            <div class="hour-slots">
+                <div class="hour-slot">6</div>
+                <div class="hour-slot">12</div>
+                <div class="hour-slot">18</div>
+                <div class="hour-slot">24</div>
+            </div>
+        </div>
+        <div class="hour-date-group" onclick="showSingleDay(20, 'Dom 20/11')">
+            <div class="hour-date-label">Dom 20/11</div>
+            <div class="hour-slots">
+                <div class="hour-slot">6</div>
+                <div class="hour-slot">12</div>
+                <div class="hour-slot">18</div>
+                <div class="hour-slot">24</div>
+            </div>
+        </div>
+        <div class="hour-date-group" onclick="showSingleDay(21, 'Lun 21/11')">
+            <div class="hour-date-label">Lun 21/11</div>
+            <div class="hour-slots">
+                <div class="hour-slot">6</div>
+                <div class="hour-slot">12</div>
+                <div class="hour-slot">18</div>
+                <div class="hour-slot">24</div>
+            </div>
+        </div>
+        <div class="hour-date-group" onclick="showSingleDay(22, 'Mar 22/11')">
+            <div class="hour-date-label">Mar 22/11</div>
+            <div class="hour-slots">
+                <div class="hour-slot">6</div>
+                <div class="hour-slot">12</div>
+                <div class="hour-slot">18</div>
+                <div class="hour-slot">24</div>
+            </div>
+        </div>
+    `;
+}
+
+function restoreDayView(view) {
+    const headerGrid = view.querySelector('.hour-timeline-header');
+    headerGrid.className = 'hour-timeline-header';
+    const days = ['Vie 1/11', 'Sáb 2/11', 'Dom 3/11', 'Lun 4/11', 'Mar 5/11', 'Mié 6/11', 'Jue 7/11', 
+                  'Vie 8/11', 'Sáb 9/11', 'Dom 10/11', 'Lun 11/11', 'Mar 12/11', 'Mié 13/11', 'Jue 14/11',
+                  'Vie 15/11', 'Sáb 16/11', 'Dom 17/11', 'Lun 18/11', 'Mar 19/11', 'Mié 20/11', 'Jue 21/11',
+                  'Vie 22/11', 'Sáb 23/11', 'Dom 24/11', 'Lun 25/11', 'Mar 26/11', 'Mié 27/11', 'Jue 28/11',
+                  'Vie 29/11', 'Sáb 30/11'];
+    
+    headerGrid.innerHTML = days.map((day, i) => 
+        `<div class="day-date-cell" onclick="showSingleDay(${i+1}, '${day}')">${day}</div>`
+    ).join('');
+}
+
+function adjustBarsForSingleDay(view) {
+    // En producción, esto recalcularía las posiciones de las barras
+    // basándose en los datos del día específico
+    alert('En producción, aquí se cargarían los datos detallados del día seleccionado con todas las horas.');
+}
     </script>
 </body>
 </html>
