@@ -1,0 +1,255 @@
+/**
+ * Sheet View Component Styles - COMPLETE
+ */
+
+.sheet-view {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow: auto;
+}
+
+.sheet-actions {
+    padding: 1rem;
+    background: var(--gray-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Hour View Container */
+.hour-view-container {
+    overflow-x: auto;
+    background: white;
+}
+
+.hour-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    min-width: 1400px;
+}
+
+.hour-header-vehicles {
+    border-right: 2px solid var(--gray-400);
+    background: var(--gray-50);
+}
+
+.hour-header-cell {
+    padding: 0.75rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--primary);
+    color: white;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.hour-category-label {
+    background: #064e3b;
+    color: white;
+    padding: 0.5rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-300);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hour-vehicle-cell {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--gray-300);
+    font-size: 0.8rem;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hour-timeline-container {
+    position: relative;
+}
+
+.hour-timeline-header {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    background: white;
+    border-bottom: 2px solid var(--gray-400);
+}
+
+.hour-header-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 60px;
+}
+
+.hour-date-group {
+    border-right: 2px solid var(--gray-300);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.hour-date-group:hover {
+    background: var(--gray-50);
+}
+
+.hour-date-label {
+    background: var(--gray-100);
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--gray-300);
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hour-slots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 30px;
+}
+
+.hour-slot {
+    padding: 0.4rem 0.2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-right: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hour-slot:last-child {
+    border-right: none;
+}
+
+/* Day View Headers */
+.day-date-cell {
+    padding: 0.5rem 0.25rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    background: var(--gray-100);
+    border-right: 2px solid var(--gray-300);
+    border-bottom: 2px solid var(--gray-400);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.day-date-cell:hover {
+    background: var(--gray-200);
+}
+
+.hour-timeline-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.hour-category-spacer {
+    height: 35px;
+    background: #064e3b;
+    border-bottom: 1px solid var(--gray-300);
+    width: 100%;
+}
+
+.hour-vehicle-row {
+    height: 50px;
+    position: relative;
+    border-bottom: 1px solid var(--gray-300);
+    width: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent 0%,
+            transparent calc(20% - 1px),
+            rgba(209, 213, 219, 0.3) calc(20% - 1px),
+            rgba(209, 213, 219, 0.3) calc(20% + 1px),
+            transparent calc(20% + 1px)
+        );
+}
+
+.reservation-bar {
+    position: absolute;
+    height: 36px;
+    top: 7px;
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+    z-index: 5;
+}
+
+.reservation-bar:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+    z-index: 10;
+}
+
+.reservation-bar.rented {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: 2px solid #065f46;
+}
+
+.reservation-bar.reserved {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: 2px solid #1e40af;
+}
+
+.reservation-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sheet-legend {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-top: 2px solid var(--gray-200);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sheet-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.sheet-legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--gray-300);
+}
