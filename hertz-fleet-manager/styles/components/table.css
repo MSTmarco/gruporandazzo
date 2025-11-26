@@ -1,0 +1,53 @@
+/**
+ * Table Component Styles
+ */
+
+.table-container {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: var(--gray-100);
+}
+
+th {
+    padding: var(--spacing-md);
+    text-align: left;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: var(--gray-700);
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--gray-200);
+    font-size: var(--font-md);
+}
+
+tbody tr:hover {
+    background: var(--gray-50);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: var(--font-sm);
+    }
+
+    th, td {
+        padding: 0.75rem 0.5rem;
+    }
+}

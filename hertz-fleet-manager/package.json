@@ -1,0 +1,20 @@
+{
+  "name": "hertz-fleet-manager",
+  "version": "1.0.0",
+  "description": "Fleet management system for Grupo Randazzo built with vanilla JavaScript following SOLID principles",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "fleet-management",
+    "vanilla-javascript",
+    "solid-principles",
+    "clean-code"
+  ],
+  "author": "Grupo Randazzo",
+  "license": "PRIVATE",
+  "devDependencies": {},
+  "dependencies": {}
+}

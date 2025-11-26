@@ -1,0 +1,62 @@
+/**
+ * Sheet View Component Styles (Excel-style view)
+ */
+
+.sheet-view {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: auto;
+}
+
+.sheet-container {
+    overflow-x: auto;
+}
+
+.sheet-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-xs);
+}
+
+.sheet-table th {
+    background: var(--gray-100);
+    padding: 0.4rem 0.3rem;
+    border: 1px solid var(--gray-300);
+    font-weight: 600;
+    font-size: var(--font-xs);
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+}
+
+.sheet-table td {
+    padding: 0.3rem 0.4rem;
+    border: 1px solid var(--gray-300);
+    font-size: var(--font-xs);
+}
+
+.sheet-legend {
+    display: flex;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-md);
+    background: var(--gray-50);
+    border-top: 2px solid var(--gray-200);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sheet-legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-sm);
+}
+
+.sheet-legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--gray-300);
+}

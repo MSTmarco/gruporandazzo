@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hertz Fleet Manager - Grupo Randazzo</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components/modal.css">
+    <link rel="stylesheet" href="styles/components/table.css">
+    <link rel="stylesheet" href="styles/components/calendar.css">
+    <link rel="stylesheet" href="styles/components/sheet.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div>
+                    <h1>Hertz Fleet Manager</h1>
+                    <div class="logo-subtitle">Grupo Randazzo</div>
+                </div>
+            </div>
+            <div class="user-info">
+                <span id="userName">Admin Usuario</span>
+                <button id="logoutBtn">Cerrar Sesión</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Tab Navigation -->
+        <div class="tabs" id="tabNavigation">
+            <button class="tab active" data-tab="dashboard">Dashboard</button>
+            <button class="tab" data-tab="vista-planilla">Vista Planilla</button>
+            <button class="tab" data-tab="flota">Gestión de Flota</button>
+            <button class="tab" data-tab="alertas">Alertas</button>
+            <button class="tab" data-tab="calendario">Calendario</button>
+            <button class="tab" data-tab="reportes">Reportes</button>
+            <button class="tab" data-tab="usuarios">Usuarios</button>
+            <button class="tab" data-tab="logs">Registro de Actividad</button>
+        </div>
+
+        <!-- Tab Contents (will be dynamically rendered) -->
+        <div id="tabContent"></div>
+    </div>
+
+    <!-- Modals Container -->
+    <div id="modalsContainer"></div>
+
+    <!-- Scripts - Load as ES6 modules -->
+    <script type="module" src="src/app.js"></script>
+</body>
+</html>

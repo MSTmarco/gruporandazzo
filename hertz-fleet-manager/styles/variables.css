@@ -1,0 +1,79 @@
+/**
+ * CSS Variables
+ * Centralized design tokens for consistent theming
+ */
+
+:root {
+    /* Primary Colors */
+    --primary: #1a1a1a;
+    --secondary: #f7c100;
+    
+    /* Status Colors */
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    
+    /* Gray Scale */
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    
+    /* Reservation States */
+    --reserved: #3b82f6;
+    --rented: #10b981;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    
+    /* Font Sizes */
+    --font-xs: 0.7rem;
+    --font-sm: 0.85rem;
+    --font-md: 0.95rem;
+    --font-lg: 1.1rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.5rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.1);
+    --shadow-lg: 0 4px 8px rgba(0,0,0,0.25);
+    
+    /* Transitions */
+    --transition-fast: 0.2s;
+    --transition-normal: 0.3s;
+    
+    /* Z-Index Layers */
+    --z-dropdown: 10;
+    --z-sticky: 15;
+    --z-header: 20;
+    --z-modal-backdrop: 100;
+    --z-modal: 1000;
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.6;
+}
